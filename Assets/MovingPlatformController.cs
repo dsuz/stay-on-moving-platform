@@ -13,6 +13,7 @@ public class MovingPlatformController : MonoBehaviour
     public float m_amplitude = 1f;
 
     public float m_speed = 2.0f;
+    public bool m_moveLeftFirst = false;
     private float m_timer;
     private Vector3 m_initialPosition;
 
@@ -26,7 +27,11 @@ public class MovingPlatformController : MonoBehaviour
         // オブジェクトを左右に揺らす
         m_timer += Time.deltaTime * m_speed;
         float posXSin = Mathf.Sin(m_timer) * m_amplitude;
-        Vector3 pos = m_initialPosition + new Vector3(posXSin, 0, 0);
+        Vector3 pos = m_initialPosition;
+        if (m_moveLeftFirst)
+            pos -= new Vector3(posXSin, 0, 0);
+        else
+            pos += new Vector3(posXSin, 0, 0);
         transform.position = pos;
     }
 
