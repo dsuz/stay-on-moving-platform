@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 左右に動き、上に乗れるオブジェクトに追加する
+/// オブジェクトを左右に動かし、プレイヤーが接触した時にはそのオブジェクトを子オブジェクトに設定する。
+/// プレイヤーが上に乗った時にプレイヤーも一緒に動いて、オブジェクトから落ちないようにする機能を提供する。
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class MovingPlatformController : MonoBehaviour
@@ -33,18 +34,13 @@ public class MovingPlatformController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.gameObject.tag == "Player")
-        {
             collision.collider.gameObject.transform.SetParent(transform);
-        }
     }
 
     // プレイヤーがオブジェクトから離れた時は、親子関係を解除する
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.gameObject.tag == "Player")
-        {
             collision.collider.gameObject.transform.SetParent(null);
-        }
-
     }
 }
